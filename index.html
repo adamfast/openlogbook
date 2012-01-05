@@ -17,14 +17,22 @@
     <div class='docs'>
       <div class='octowrap'>
       <p>
-        The Open Logbook specification aims to be an open interchange format for flying applications on handheld devices to sync easily with one another.
+        The Open Logbook specification aims to be an open interchange format for flying applications to sync easily with one another.
         This specification aims to be flexible and powered by <a href="http://json.org">JSON</a>.
       </p>
+      <h3>Metadata</h3>
       <p>
-        The specification provides a preamble, a section where the format version, a UNIX timestamp when the export was generated, a title and by what software generated the file.
+        Provides:
+        <ul>
+            <li>Format version</li>
+            <li>UNIX timestamp when the export was generated</li>
+            <li>Logbook title</li>
+            <li>Identifier for software generated the output</li>
+        </ul>
       </p>
+      <h3>Flights</h3>
       <p>
-        The flights section is a list of flights to be imported or exported by the application. A flight will contain:
+        A list of flights to be imported or exported by the application. A flight will contain:
         <ul>
             <li>UNIX timestamp when the flight was flown</li>
             <li>A "to" field that marks the destination of the flight</li>
