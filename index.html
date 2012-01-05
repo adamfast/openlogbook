@@ -17,16 +17,59 @@
     <div class='docs'>
       <div class='octowrap'>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel arcu magna, ac condimentum lorem. Quisque convallis velit sit amet tortor ultricies congue. Sed dapibus nibh ut nisl tempus consequat. Mauris quis urna elit, eu iaculis nulla. Donec vitae orci ipsum. Sed mollis auctor mauris et varius. Curabitur elementum, mi blandit eleifend aliquam, nulla justo pulvinar eros, et adipiscing enim lectus sit amet nunc.
+        The Open Logbook specification aims to be an open interchange format for flying applications on handheld devices to sync easily with one another.
+        This specification aims to be flexible and powered by <a href="http://json.org">JSON</a>.
       </p>
       <p>
-        Praesent hendrerit nisl at sapien ultricies ac interdum eros venenatis. Pellentesque quis sem rutrum augue commodo interdum. Proin sem elit, cursus eget tempor id, consectetur quis dolor. In consectetur lacus ac eros vulputate vel interdum diam sodales. Sed pulvinar tincidunt leo sit amet cursus. Pellentesque erat odio, condimentum in mollis vitae, cursus ac justo. In luctus venenatis lacus, a porttitor lectus facilisis eu. Curabitur blandit tellus eget erat sollicitudin dapibus pretium tellus egestas. Nulla vel lorem ipsum, non malesuada mauris. Nunc non nunc leo.
+        The specification provides a preamble, a section where the format version, a UNIX timestamp when the export was generated, a title and by what software generated the file.
       </p>
       <p>
-        Maecenas bibendum cursus nisl, vel rutrum sapien commodo eget. Nulla nec mi a velit vestibulum consequat. Nam vel eros et ante ullamcorper dictum eget in sem. Nam bibendum mi eu lectus ullamcorper tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin a viverra eros. Phasellus dignissim aliquet nisi nec consequat. Mauris eu diam vitae diam malesuada egestas eget non purus. Integer vulputate posuere nulla vitae adipiscing. Vestibulum ornare urna eu massa imperdiet eget consectetur urna imperdiet. Proin vitae dolor tellus. Cras molestie eros ut purus tincidunt scelerisque. Fusce blandit felis nec lorem congue a fermentum tellus convallis. Nullam vel felis purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed quam neque, viverra id consectetur ut, blandit vel leo.
+        The flights section is a list of flights to be imported or exported by the application. A flight will contain:
+        <ul>
+            <li>UNIX timestamp when the flight was flown</li>
+            <li>A "to" field that marks the destination of the flight</li>
+            <li>A "from" field that marks the origin of the flight</li>
+            <li>An optional "enroute" field that describes the flight's enroute details as a list</li>
+            <li>An <a href="#aircraft">Aircraft Section</a> that describes the aircraft used for the flight</li>
+            <li>A "remarks" field that holds a list of remarks for the flight</li>
+            <li>A <a href="#fields">Fields Section</a> the holds key-value pairs for the flight details</li>
+        </ul>
       </p>
+      <a name="aircraft"></a>
+      <h3>Aircraft</h3>
       <p>
-        Vestibulum et orci magna. Nam quis laoreet elit. Nulla congue accumsan accumsan. Pellentesque ac justo suscipit purus convallis blandit. Sed sit amet turpis purus, quis mattis dolor. In hac habitasse platea dictumst. Pellentesque ac iaculis nisl. Maecenas volutpat tempor metus, id interdum orci ullamcorper in. Vivamus porttitor, magna sit amet ullamcorper vulputate, quam risus lacinia sapien, eu laoreet nisl mi nec tellus. Proin est dui, scelerisque eget facilisis ut, pellentesque sed orci. Integer interdum leo rhoncus leo tincidunt sodales non semper dolor. Curabitur malesuada, ipsum quis tincidunt vulputate, nisl lacus ultricies dui, eget aliquet erat ligula et urna. Aliquam hendrerit egestas massa eget imperdiet.
+        Describes an aircraft used for a flight. An aircraft <strong>must</strong> contain the following fields, any additional metadata can be used.
+        <ul>
+            <li>A "type" field used to identify the aircraft type</li>
+            <li>A "tailNumber" field that is the aircraft's tail number</li>
+            <li>A "remarks" field that can be used to hold remarks about an aircraft</li>
+        </ul>
+      </p>
+      <a name="fields"></a>
+      <h3>Fields</h3>
+      <p>
+        The keys and values in the "fields" section describe the details for each individual flight. Valid field keys are:
+        <ul>
+            <li><strong>PIC</strong> type: decimal - total Pilot In Command time</li>
+            <li><strong>SIC</strong> type: decimal - total Second In Command time</li>
+            <li><strong>totalTime</strong> type: decimal - Total Time</li>
+            <li><strong>approaches</strong> type: integer - number of Approaches</li>
+            <li><strong>takeoffs</strong> type: integer - number of Takeoffs</li>
+            <li><strong>landings</strong> type: integer - number of Landings</li>
+            <li><strong>picCrossCountry</strong> type: decimal - total PIC Cross Country time</li>
+            <li><strong>complex</strong> type: decimal - total Complex airframe time</li>
+            <li><strong>nightTakeoffs</strong> type: integer - number of Night Takeoffs</li>
+            <li><strong>nightLandings</strong> type: integer - number of Night Landings</li>
+            <li><strong>multiengine</strong> type: decimal - total Multi-engine airframe time</li>
+            <li><strong>crossCountry</strong> type: decimal - total Cross Country time</li>
+            <li><strong>night</strong> type: decimal - total Night flying time</li>
+            <li><strong>instrument</strong> type: decimal - total Instrument flying time</li>
+            <li><strong>simulatedInstrument</strong> type: decimal - total Simulated Instrument flying time</li>
+            <li><strong>dualReceived</strong> type: decimal - total Dual Received time</li>
+            <li><strong>dualGiven</strong> type: decimal - total Dual Given time</li>
+            <li><strong>hobbs</strong> type: decimal - Hobbs ending time</li>
+            <li><strong>tach</strong> type: decimal - Tach ending time</li>
+        </ul>
       </p>
       </div>
       
@@ -35,9 +78,10 @@
       <div class="highlight"><pre>
 
 <span class="p">{</span>
+    <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
     <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Logbook Title&quot;</span><span class="p">,</span>
     <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="mi">1325790025</span><span class="p">,</span>
-    <span class="s2">&quot;createdBy&quot;</span><span class="o">:</span> <span class="s2">&quot;Flight Time&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;createdBy&quot;</span><span class="o">:</span> <span class="s2">&quot;My Flight App&quot;</span><span class="p">,</span>
     <span class="s2">&quot;flights&quot;</span><span class="o">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="s2">&quot;date&quot;</span><span class="o">:</span> <span class="mi">1325790025</span><span class="p">,</span>
